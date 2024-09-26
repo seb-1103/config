@@ -1,0 +1,21 @@
+# alias
+function c { cd "$1" ; ls --color; }
+alias cd="c"
+alias ..="c .."
+alias ls="ls --color"
+alias lt="ls -ltr --color"
+alias la="ls -all -ltr --color"
+alias his="history"
+alias tree="tree -c"
+alias cp="cp -v"
+alias mv="mv -v"
+alias ln="ln -v"
+
+alias diff='diff --color --unified=0'
+
+# start progs
+complete -F _longopt gv
+alias v="vim"
+alias vi="vim"
+alias gv="gvim"
+alias gvd="gvim -d"
