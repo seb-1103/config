@@ -13,9 +13,56 @@ alias ln="ln -v"
 
 alias diff='diff --color --unified=0'
 
+# command stat
+alias freqgit='history | cut -c 8- | grep git | sort | uniq -c | sort -nr | head -n 10'
+alias freq='history | cut -c 8- | sort | uniq -c | sort -nr | head -n 10'
+
+# prompt
+PS1='$(hostname): $(pwd) > '
+# git
+if [[ -f "${HOME}/.git-completion.bash" ]]; then
+    source "${HOME}/.git-completion.bash"
+fi
+if [[ -f "${HOME}/.git-prompt.sh" ]]; then
+    source "${HOME}/.git-prompt.sh"
+    PS1='$(hostname): $(pwd) $(__git_ps1 "(%s)")> '
+    GIT_PS1_SHOWDIRTYSTATE=1
+    GIT_PS1_SHOWSTASHSTATE=1
+    GIT_PS1_SHOWUNTRACKEDSTATE=1
+    GIT_PS1_SHOWUPSTREAM="auto"
+fi
+
 # start progs
 complete -F _longopt gv
 alias v="vim"
 alias vi="vim"
 alias gv="gvim"
 alias gvd="gvim -d"
+
+# terminal
+alias xt="xterm -sb -n -T -fn fixed =fg black -bg gray &"
+
+# python venv
+alias dv="deactivate"
+lv() {
+    VENV_PATH="./.venv/bin/activate"
+    if [ -f "$VENV_PATH" ]; then
+        echo -e "\033[32m[¬º-°]¬[¬º-°]¬[¬º-°]¬Summoning local .venv...\033[0m"
+        source "$VENV_PATH"
+    else
+        echo -e "\033[31m_(:3」∠)_ Oops! 404 Virtual Environment Not Found!\033[0m"
+    fi
+}
+
+# fancy
+case "$TERM" in
+    xterm-color|*-256color)
+        color_promp=yes
+        ;;
+esac
+shopt -s dotglob
+shopt -s histappend
+shopt -s checkwinsize
+
+# yt-dlp
+alias ytd="yt-dlp -S vcodec:h264,fps,res:720,acodec:m4a  "
